@@ -85,7 +85,7 @@ export default {
           var response = JSON.parse(xhr.response);
           localStorage.setItem("user", btoa(JSON.stringify(response)));
           localStorage.setItem("login_tokens", btoa(response.token));
-          vue.$router.push({ name: "home" });
+          vue.$router.go({ name: "home" });
         }
       };
       xhr.open("POST", this.$apiURL + "auth/login");

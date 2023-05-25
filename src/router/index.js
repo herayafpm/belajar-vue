@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import RequestConsultation from "../views/RequestConsultationView.vue";
+import ListSpots from "../views/ListSpotsView.vue";
+import SpotDetail from "../views/SpotDetailView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +32,24 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
+    {
+      path: "/list_spots/:vaccination",
+      name: "list_spots",
+      component: ListSpots,
+      props: true,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/spot_detail/:spot_id",
+      name: "spot_detail",
+      component: SpotDetail,
+      props: true,
+      meta: {
+        requiresAuth: true,
+      },
+    },
   ],
 });
 
@@ -41,6 +61,11 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else {
+    if(to.name == 'login'){
+      if (localStorage.getItem("login_tokens") !== null) {
+        next({ name: "home" });
+      }
+    }
     next();
   }
 });

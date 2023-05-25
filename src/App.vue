@@ -17,14 +17,14 @@ import { RouterLink, RouterView } from "vue-router";
       <div class="collapse navbar-collapse" id="navbarHeader">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex">
           <li v-if="user != null" class="nav-item">
-            <a class="nav-link" @click="logout">Logout</a>
+            <a class="nav-link" style="cursor:pointer" @click="logout">Logout</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
   <section>
-    <RouterView />
+    <RouterView v-model="user" />
   </section>
 </template>
 
@@ -55,7 +55,7 @@ export default {
       localStorage.removeItem("user");
       localStorage.removeItem("login_tokens");
       this.user = {};
-      this.$router.push({ name: "login" });
+      this.$router.go();
     },
   },
 };
